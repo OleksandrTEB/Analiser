@@ -12,17 +12,15 @@ function analize() {
     length_charset.textContent = countCharset(value)
 
     const words = countWord(value)
-    length_word.textContent = words.length
+    length_word.textContent = String(words.length)
 
     length_zdan.textContent = countZdan(value)
 
     max_length.textContent = maxLengthWord(words)
 
+    center_lens.textContent = centerWordCharset(words);
 
-
-    center_lens.textContent = Math.floor(all_length_words / count_words);
-
-    let arr_all_upperant_letter = value.match(/[A-Z]/g)
+    countUpperantLetters(value)
 }
 
 function countCharset(text) {
@@ -30,7 +28,13 @@ function countCharset(text) {
 }
 
 function countWord(text) {
-    return text.split(" ")
+    let words = text.split(" ")
+
+    words.forEach(word => {
+        word.trim()
+    })
+
+    return words
 }
 
 function countZdan(text) {
@@ -52,11 +56,25 @@ function maxLengthWord(words) {
     return word_
 }
 
-function centerWordCharset() {
+function centerWordCharset(words) {
     let all_length_words = 0
     let count_words = words.length
 
     words.forEach(word => {
         all_length_words += word.length
+    })
+
+    return String(Math.floor(all_length_words / count_words));
+}
+
+function countUpperantLetters(text) {
+    let arr_low_letters = [], arr_upperant_letters = [], procent = 0;
+
+    const words = countWord(text)
+
+    words.forEach(word => {
+        word.forEach(char => {
+            console.log(char)
+        })
     })
 }
