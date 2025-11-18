@@ -22,7 +22,7 @@ function analize() {
 
     center_lens.textContent = centerWordCharset(words);
 
-    procent.textContent = String(countUpperantLetters(value))
+    procent.textContent = `${countUpperantLetters(value)}%`
 }
 
 function countCharset(text) {
@@ -112,8 +112,7 @@ function countUpperantLetters(text) {
     })
 
     let sum = counter_low_letters + counter_upperant_letters
-    let upper = counter_upperant_letters
 
 
-    return (upper * 100) / sum
+    return Math.floor((counter_upperant_letters * 100) / sum)
 }
