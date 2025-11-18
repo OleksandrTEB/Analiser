@@ -1,18 +1,20 @@
 const input = document.querySelector('textarea')
 const length_charset = document.querySelector('.span1')
+const length_charset_out_space = document.querySelector('.span222')
 const length_word = document.querySelector('.span2')
 const length_zdan = document.querySelector('.span3')
 const max_length = document.querySelector('.span4')
 const center_lens = document.querySelector('.span5')
-const pocent = document.querySelector('.span6')
+const procent = document.querySelector('.span6')
 
 function analize() {
-    const value = input.value.trim()
+    const value = input.value
 
     length_charset.textContent = countCharset(value)
+    length_charset_out_space.textContent = String(countCharsetOutSpace(value))
 
-    const words = countWord(value)
-    length_word.textContent = String(words.length)
+    const words = countWord(value).words
+    length_word.textContent = String(countWord(value).counterWord)
 
     length_zdan.textContent = countZdan(value)
 
@@ -20,21 +22,48 @@ function analize() {
 
     center_lens.textContent = centerWordCharset(words);
 
-    countUpperantLetters(value)
+    procent.textContent = String(countUpperantLetters(value))
 }
 
 function countCharset(text) {
     return text.length
 }
 
+function countCharsetOutSpace(text) {
+    let charsetCounter = 0
+
+    for (let i = 0; i < text.length; i++) {
+        if (text.charAt(i) !== " ") {
+            charsetCounter++
+        }
+    }
+    return charsetCounter
+}
+
 function countWord(text) {
     let words = text.split(" ")
 
+    let newArrWords = []
+
+    let counterWord = 0;
+
     words.forEach(word => {
-        word.trim()
+        if (word !== '') {
+            word.trim()
+            counterWord++
+        }
     })
 
-    return words
+    for (let i = 0; i < words.length; i++) {
+        if (words[i] !== "") {
+            newArrWords.push(words[i])
+        }
+    }
+
+    return {
+        words: newArrWords,
+        counterWord: counterWord
+    }
 }
 
 function countZdan(text) {
@@ -68,13 +97,23 @@ function centerWordCharset(words) {
 }
 
 function countUpperantLetters(text) {
-    let arr_low_letters = [], arr_upperant_letters = [], procent = 0;
+    let counter_low_letters = 0, counter_upperant_letters = 0
 
-    const words = countWord(text)
+    const words = countWord(text).words
 
     words.forEach(word => {
-        word.forEach(char => {
-            console.log(char)
-        })
+        for (let i = 0; i < word.length; i++) {
+            if (/[A-Z]/.test(word.charAt(i))) {
+                counter_upperant_letters ++
+            } else {
+                counter_low_letters++
+            }
+        }
     })
+
+    let sum = counter_low_letters + counter_upperant_letters
+    let upper = counter_upperant_letters
+
+
+    return (upper * 100) / sum
 }
