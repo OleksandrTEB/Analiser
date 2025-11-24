@@ -6,6 +6,7 @@ const length_zdan = document.querySelector('.span3')
 const max_length = document.querySelector('.span4')
 const center_lens = document.querySelector('.span5')
 const procent = document.querySelector('.span6')
+const czas = document.querySelector('.span7')
 
 function analize() {
     const value = input.value
@@ -23,6 +24,8 @@ function analize() {
     center_lens.textContent = centerWordCharset(words);
 
     procent.textContent = `${countUpperantLetters(value)}%`
+
+    czas.textContent = String(timeRead(countWord(value).words))
 }
 
 function countCharset(text) {
@@ -115,4 +118,8 @@ function countUpperantLetters(text) {
 
 
     return Math.floor((counter_upperant_letters * 100) / sum)
+}
+
+function timeRead(text) {
+    return text
 }
